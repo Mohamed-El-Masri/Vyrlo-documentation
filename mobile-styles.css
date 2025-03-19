@@ -1,0 +1,287 @@
+/* Enhanced mobile-specific styles for better responsiveness */
+
+@media (max-width: 1200px) {
+    .quick-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .visualization-area {
+        height: 350px;
+    }
+    
+    .timeline-item {
+        padding-left: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .documentation-container {
+        width: 100vw;
+        padding-left: 0;
+        overflow-x: hidden;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 1000;
+        width: 250px;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1999;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background-color: var(--secondary-color);
+    }
+    
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .tabs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .tab-btn {
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .timeline-item {
+        padding-left: 50px;
+    }
+    
+    .timeline-badge {
+        left: 0;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .map-legend {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .api-section-title {
+        font-size: 1.5rem;
+    }
+    
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .endpoint-header {
+        flex-wrap: wrap;
+    }
+    
+    .method {
+        margin-bottom: 10px;
+    }
+    
+    .visualization-area {
+        height: 280px;
+    }
+    
+    .service-map-container, .file-map-container, .auth-flow-container {
+        flex-direction: column;
+    }
+    
+    .map-legend, .file-map-details, .flow-explanation {
+        margin-top: 15px;
+    }
+    
+    .timeline::before {
+        left: 17px;
+    }
+    
+    .timeline-item {
+        padding-left: 45px;
+        margin-bottom: 30px;
+    }
+    
+    .timeline-badge {
+        left: 0;
+        width: 35px;
+        height: 35px;
+    }
+    
+    /* Make code look better on mobile */
+    code {
+        font-size: 0.9rem;
+    }
+    
+    /* Improve the endpoint display */
+    .endpoint {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .endpoint-url-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .copy-btn {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .params-table, .headers-table, .form-data-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .intro-section h1 {
+        font-size: 1.5rem;
+    }
+    
+    .api-section-title {
+        font-size: 1.3rem;
+    }
+    
+    .endpoint-title {
+        font-size: 1rem;
+    }
+    
+    .timeline-content h4 {
+        font-size: 1rem;
+    }
+    
+    .api-pills {
+        flex-wrap: wrap;
+    }
+    
+    .api-pill {
+        margin-bottom: 5px;
+    }
+    
+    .service-badge {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+    
+    /* Ensure tab buttons don't overflow */
+    .tab-btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    /* Fix code overflow issues */
+    .endpoint-url {
+        font-size: 0.9rem;
+    }
+    
+    /* Ensure the response body fits */
+    .response-body pre {
+        font-size: 0.85rem;
+    }
+    
+    /* Improve legend display on small screens */
+    .legend-item {
+        font-size: 12px;
+        padding: 3px 5px;
+        margin-right: 5px;
+        white-space: nowrap;
+    }
+    
+    /* Adjust zoom controls for small screens */
+    .zoom-controls {
+        top: 5px !important;
+        right: 5px !important;
+    }
+    
+    .zoom-button {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-content {
+        padding: 0.8rem;
+    }
+    
+    .tabs {
+        gap: 5px;
+    }
+    
+    .tab-btn {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+        border-radius: 15px;
+    }
+    
+    .legend-item {
+        font-size: 10px;
+    }
+    
+    .endpoint-content h4 {
+        font-size: 1rem;
+    }
+}
+
+/* Dark mode for mobile devices with system preference */
+@media (prefers-color-scheme: dark) and (max-width: 992px) {
+    .mobile-menu-toggle {
+        background-color: var(--secondary-color);
+    }
+    
+    .mobile-menu-toggle:hover {
+        background-color: var(--primary-color);
+    }
+}
+
+/* Prevent horizontal scrolling on all devices */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}

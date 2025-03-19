@@ -1,0 +1,969 @@
+{
+    "title": "VYRLO API DOCUMENTATION",
+    "baseUrl": "https://www.vyrlo.com:8080/",
+    "sections": [
+        {
+            "id": "authentication",
+            "title": "Authentication APIs",
+            "endpoints": [
+                {
+                    "id": "signup",
+                    "title": "Sign Up",
+                    "url": "/signup",
+                    "method": "POST",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "username": "momen",
+                                    "email": "momensaleh2468@gmail.com",
+                                    "password": "m1234567"
+                                }
+                            }
+                        }
+                    },
+                    "responses": [
+                        {
+                            "status": 201,
+                            "description": "Created",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "message": "User Created Successfully"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "status": 409,
+                            "description": "Conflict",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "statusCode": 409,
+                                        "message": "already registerd"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "status": 500,
+                            "description": "Internal Server Error (when duplicated username)",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "statusCode": 500,
+                                        "message": "Internal server error"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "signin",
+                    "title": "Sign In",
+                    "url": "/signin",
+                    "method": "POST",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "email": "momensaleh2468@gmail.com",
+                                    "password": "m1234567"
+                                }
+                            }
+                        }
+                    },
+                    "responses": [
+                        {
+                            "status": 201,
+                            "description": "Created",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "message": "success",
+                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibW9tZW4iLCJlbWFpbCI6Im1vbWVuc2FsZWgyNDY4QGdtYWlsLmNvbSIsInVzZXJJZCI6IjY3YTg5OWY1MTkwOWJjNjBjY2RjMjZhNyIsImlhdCI6MTc0MDEwMzIwMX0.m9M3Je5XhXCSbLFWXukPE_7PIRdTKr8Fd049ct24AkM"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "status": 500,
+                            "description": "Internal Server Error (when email or password is wrong)",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "statusCode": 500,
+                                        "message": "Internal server error"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "reset-password",
+                    "title": "Reset Password with OTP",
+                    "url": "/forgetpass/reset",
+                    "method": "POST",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "email": "momensaleh2468@gmail.com",
+                                    "newPassword": "ma12345678",
+                                    "otp": "827427"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "send-otp",
+                    "title": "Send OTP",
+                    "url": "/send-otp",
+                    "method": "POST",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "email": "momensaleh2468@gmail.com"
+                                }
+                            }
+                        }
+                    },
+                    "responses": [
+                        {
+                            "status": 201,
+                            "description": "Created",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "message": "OTP sent to email"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "change-password",
+                    "title": "Change Password",
+                    "url": "/change-pass",
+                    "method": "PUT",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "oldPassword": "ma12345678",
+                                    "newPassword": "m1234567"
+                                }
+                            }
+                        }
+                    },
+                    "responses": [
+                        {
+                            "status": 403,
+                            "description": "Forbidden (if incorrect old password)",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "statusCode": 403,
+                                        "message": "Incorrect old password"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "forget-password",
+                    "title": "Forget Password Request",
+                    "url": "/forgetpass/request",
+                    "method": "POST",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "email": "momensaleh2468@gmail.com"
+                                }
+                            }
+                        }
+                    },
+                    "responses": [
+                        {
+                            "status": 200,
+                            "description": "Success",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "message": "OTP sent to email"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "profile",
+            "title": "Profile Management",
+            "endpoints": [
+                {
+                    "id": "get-profile",
+                    "title": "Get User Profile",
+                    "url": "/profile/{UserId}",
+                    "urlExample": "/profile/67a899f51909bc60ccdc26a7",
+                    "method": "GET",
+                    "responses": [
+                        {
+                            "status": 200,
+                            "description": "Success",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "numberOfProjects": 0,
+                                        "_id": "67aa4ae73f7622b5e0af990d",
+                                        "userId": {
+                                            "_id": "67a899f51909bc60ccdc26a7",
+                                            "username": "momen",
+                                            "email": "momensaleh2468@gmail.com"
+                                        },
+                                        "profilePic": [
+                                            "http://res.cloudinary.com/da44zf1mo/image/upload/v1740104111/Category/icons/szn0adraujidvgrnkeyo.png"
+                                        ],
+                                        "socialAccounts": [
+                                            {
+                                                "platform": "LinkedIn",
+                                                "url": "https://linkedin.com/in/username",
+                                                "_id": "67b7e1b03e563fdd31b8dbff"
+                                            }
+                                        ],
+                                        "address": "123 Main Street",
+                                        "phoneNumber": "1234567890",
+                                        "title": "Software Engineer",
+                                        "about": "Passionate developer with experience in full-stack development",
+                                        "city": "new york",
+                                        "state": "yn",
+                                        "zipCode": "10001"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "edit-profile",
+                    "title": "Edit User Profile",
+                    "url": "/profile/{UserId}",
+                    "urlExample": "/profile/67a899f51909bc60ccdc26a7",
+                    "method": "POST",
+                    "formData": [
+                        {
+                            "name": "profilePic",
+                            "type": "file"
+                        },
+                        {
+                            "name": "title",
+                            "type": "text"
+                        },
+                        {
+                            "name": "phoneNumber",
+                            "type": "text"
+                        },
+                        {
+                            "name": "address",
+                            "type": "text"
+                        },
+                        {
+                            "name": "city",
+                            "type": "text"
+                        },
+                        {
+                            "name": "state",
+                            "type": "text"
+                        },
+                        {
+                            "name": "zipCode",
+                            "type": "text"
+                        },
+                        {
+                            "name": "about",
+                            "type": "text"
+                        },
+                        {
+                            "name": "socialAccounts",
+                            "type": "text"
+                        }
+                    ],
+                    "responses": [
+                        {
+                            "status": 201,
+                            "description": "Created",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "numberOfProjects": 0,
+                                        "_id": "67aa4ae73f7622b5e0af990d",
+                                        "userId": "67a899f51909bc60ccdc26a7",
+                                        "profilePic": [
+                                            "http://res.cloudinary.com/da44zf1mo/image/upload/v1740104111/Category/icons/szn0adraujidvgrnkeyo.png"
+                                        ],
+                                        "title": "Software Engineer",
+                                        "phoneNumber": "1234567890",
+                                        "address": "123 Main Street",
+                                        "city": "new york",
+                                        "state": "yn",
+                                        "zipCode": "10001",
+                                        "about": "Passionate developer with experience in full-stack development"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "status": 400,
+                            "description": "Bad Request",
+                            "content": {
+                                "application/json": {
+                                    "example": {
+                                        "statusCode": 400,
+                                        "message": "Invalid file type."
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "payments",
+            "title": "Payment and Checkout",
+            "endpoints": [
+                {
+                    "id": "process-checkout",
+                    "title": "Process Checkout",
+                    "url": "/profile/api/checkout",
+                    "method": "POST",
+                    "headers": [
+                        {
+                            "name": "token",
+                            "required": true,
+                            "description": "User authentication token"
+                        }
+                    ],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "transactionId": "test123",
+                                    "type": "monthly",
+                                    "listingId": "67ab7fdae9fc0bcda8726b39",
+                                    "price": 20
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "pricing",
+            "title": "Pricing APIs",
+            "endpoints": [
+              {
+                "id": "get-all-pricing",
+                "title": "Get All Pricing",
+                "url": "/pricing",
+                "method": "GET",
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": [
+                          {
+                            "_id": "67a8f12d25d1f11973d902fe",
+                            "monthlyPrice": "20",
+                            "yearlyPrice": "20",
+                            "postingPrice": "20",
+                            "createdAt": "2025-02-09T18:17:17.960Z",
+                            "updatedAt": "2025-02-11T16:43:16.122Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "get-pricing-by-id",
+                "title": "Get Pricing by ID",
+                "url": "/pricing/{id}",
+                "method": "GET"
+              },
+              {
+                "id": "add-pricing",
+                "title": "Add New Pricing (Admin)",
+                "url": "/pricing",
+                "method": "POST",
+                "adminOnly": true
+              },
+              {
+                "id": "update-pricing",
+                "title": "Update Pricing (Admin)",
+                "url": "/pricing/{id}",
+                "method": "PUT",
+                "adminOnly": true
+              },
+              {
+                "id": "delete-pricing",
+                "title": "Delete Pricing (Admin)",
+                "url": "/pricing/{id}",
+                "method": "DELETE",
+                "adminOnly": true
+              }
+            ]
+          },
+          {
+            "id": "reviews",
+            "title": "Reviews",
+            "endpoints": [
+              {
+                "id": "get-reviews",
+                "title": "Get Reviews for a Listing",
+                "url": "/api/reviews/{listingId}",
+                "method": "GET",
+                "parameters": [
+                  {
+                    "name": "page",
+                    "in": "query",
+                    "description": "Pagination page number",
+                    "required": false,
+                    "type": "number"
+                  },
+                  {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "Items per page",
+                    "required": false,
+                    "type": "number"
+                  }
+                ],
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "message": "Reviews retrieved successfully",
+                          "reviews": [
+                            {
+                              "_id": "67ab8ef254aace716f867c9f",
+                              "listingId": "67ab7fdae9fc0bcda8726b39",
+                              "serviceRating": 5,
+                              "moneyRating": 4,
+                              "cleanlinessRating": 5,
+                              "locationRating": 4,
+                              "reviewerName": "John Doe",
+                              "reviewerEmail": "johndoe@example.com",
+                              "reviewText": "hello i want to say these is great listing",
+                              "createdAt": "2025-02-11T17:54:58.815Z",
+                              "updatedAt": "2025-02-11T17:54:58.815Z"
+                            }
+                          ],
+                          "averages": {
+                            "serviceAvg": 5,
+                            "moneyAvg": 4,
+                            "cleanlinessAvg": 5,
+                            "locationAvg": 4,
+                            "totalAverage": 4.5
+                          },
+                          "pagination": {
+                            "totalReviews": 1,
+                            "totalPages": 1,
+                            "currentPage": 1,
+                            "limit": 2
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "create-review",
+                "title": "Create Review",
+                "url": "/api/reviews/{listingId}",
+                "method": "POST",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "serviceRating": 5,
+                        "moneyRating": 4,
+                        "cleanlinessRating": 5,
+                        "locationRating": 4,
+                        "reviewerName": "John Doe",
+                        "reviewerEmail": "johndoe@example.com",
+                        "reviewText": "hello i want to say these is great listing"
+                      }
+                    }
+                  }
+                },
+                "responses": [
+                  {
+                    "status": 201,
+                    "description": "Created",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "message": "Review added successfully",
+                          "newReview": {
+                            "listingId": "67ab7fdae9fc0bcda8726b39",
+                            "serviceRating": 5,
+                            "moneyRating": 4,
+                            "cleanlinessRating": 5,
+                            "locationRating": 4,
+                            "reviewerName": "John Doe",
+                            "reviewerEmail": "johndoe@example.com",
+                            "reviewText": "hello i want to say these is great listing",
+                            "_id": "67b7e8480e74e45bfabefbbb",
+                            "createdAt": "2025-02-21T02:43:20.178Z",
+                            "updatedAt": "2025-02-21T02:43:20.178Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "update-review",
+                "title": "Update Review",
+                "url": "/api/reviews/{reviewId}",
+                "method": "PATCH",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "serviceRating": 5,
+                        "moneyRating": 4,
+                        "cleanlinessRating": 5,
+                        "locationRating": 4,
+                        "reviewerName": "John Doe",
+                        "reviewerEmail": "johndoe@example.com",
+                        "reviewText": "hello i want to say these is great listing"
+                      }
+                    }
+                  }
+                },
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "message": "Review updated successfully",
+                          "review": {
+                            "_id": "64a000000000000000000002",
+                            "listingId": "64a000000000000000000010",
+                            "serviceRating": 5,
+                            "moneyRating": 4,
+                            "cleanlinessRating": 5,
+                            "locationRating": 4,
+                            "reviewText": "hello i want to say these is great listing",
+                            "reviewerName": "John Doe",
+                            "reviewerEmail": "johndoe@example.com"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "delete-review",
+                "title": "Delete Review",
+                "url": "/api/reviews/{reviewId}",
+                "method": "DELETE",
+                "security": "Admin and review writer only"
+              }
+            ]
+          },
+          {
+            "id": "categories",
+            "title": "Categories",
+            "endpoints": [
+              {
+                "id": "get-all-categories",
+                "title": "Get All Categories",
+                "url": "/categories",
+                "method": "GET",
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": [
+                          {
+                            "_id": "67ae1e66c57141f547bc1f47",
+                            "categoryName": "Accountant",
+                            "iconOne": "",
+                            "iconTwo": "",
+                            "amenities": [
+                              "Free initial consultation",
+                              "Online appointment scheduling",
+                              "Client portal for document sharing"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "get-category-by-id",
+                "title": "Get Category by ID",
+                "url": "/categories/{id}",
+                "method": "GET",
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "_id": "67ae1e66c57141f547bc1f4a",
+                          "categoryName": "Restaurant",
+                          "iconOne": "",
+                          "iconTwo": "",
+                          "amenities": [
+                            "Outdoor patio or rooftop dining",
+                            "Takeout and delivery options via app",
+                            "Happy hour drink and food specials"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "add-category",
+                "title": "Add Category (Admin)",
+                "url": "/categories",
+                "method": "POST",
+                "adminOnly": true,
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "categoryName": "test1",
+                        "iconOne": "",
+                        "iconTwo": "",
+                        "amenities": ["s", "d"]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "id": "update-category",
+                "title": "Update Category (Admin)",
+                "url": "/categories/{id}",
+                "method": "PUT",
+                "adminOnly": true
+              },
+              {
+                "id": "delete-category",
+                "title": "Delete Category (Admin)",
+                "url": "/categories/{id}",
+                "method": "DELETE",
+                "adminOnly": true
+              }
+            ]
+          },
+          {
+            "id": "listings",
+            "title": "Listings APIs",
+            "endpoints": [
+              {
+                "id": "get-listings",
+                "title": "Get Listings (with pagination and filters)",
+                "url": "/listing",
+                "method": "GET",
+                "parameters": [
+                  {
+                    "name": "lastValue",
+                    "in": "query",
+                    "description": "Pagination value (1 for 4 items, 2 for 5 items, etc.)",
+                    "required": false,
+                    "type": "number"
+                  },
+                  {
+                    "name": "name",
+                    "in": "query",
+                    "description": "Filter by listing name",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "name": "location",
+                    "in": "query",
+                    "description": "Filter by location",
+                    "required": false,
+                    "type": "string"
+                  },
+                  {
+                    "name": "categoryId",
+                    "in": "query",
+                    "description": "Filter by category ID",
+                    "required": false,
+                    "type": "string"
+                  }
+                ],
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "listings": [
+                            {
+                              "_id": "67ab7fdae9fc0bcda8726b39",
+                              "userId": "67a899f51909bc60ccdc26a7",
+                              "listingName": "My New Listing",
+                              "categoryId": {
+                                "_id": "67ae1e66c57141f547bc1f47",
+                                "categoryName": "Accountant"
+                              },
+                              "location": "New York",
+                              "longitude": "-74.0060",
+                              "latitude": "40.7128",
+                              "description": "A great place to stay!",
+                              "isActive": true,
+                              "isPosted": true
+                            }
+                          ],
+                          "lastValue": 4,
+                          "totalItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "get-listing-by-id",
+                "title": "Get Listing by ID",
+                "url": "/listing/{id}",
+                "method": "GET",
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success (if listing exists)",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "_id": "67ab7fdae9fc0bcda8726b39",
+                          "userId": "67a899f51909bc60ccdc26a7",
+                          "listingName": "My New Listing",
+                          "categoryId": {
+                            "_id": "67ae1e66c57141f547bc1f47",
+                            "categoryName": "Accountant",
+                            "amenities": ["Free initial consultation"]
+                          },
+                          "location": "New York",
+                          "description": "A great place to stay!",
+                          "email": "owner@example.com",
+                          "mobile": "123456789"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "status": 404,
+                    "description": "Not Found",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "message": "Listing is not found"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "get-user-listings",
+                "title": "Get User Listings",
+                "url": "/listing/user",
+                "method": "GET",
+                "headers": [
+                  { "name": "token", "required": true, "description": "User authentication token" }
+                ],
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": [
+                          {
+                            "_id": "67ab7fdae9fc0bcda8726b39",
+                            "userId": "67a899f51909bc60ccdc26a7",
+                            "listingName": "My New Listing",
+                            "location": "New York",
+                            "description": "A great place to stay!",
+                            "isActive": true,
+                            "isPosted": true
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "create-listing",
+                "title": "Create Listing",
+                "url": "/listing",
+                "method": "POST",
+                "headers": [
+                  { "name": "token", "required": true, "description": "User authentication token" }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "listingName": "Tech Solutions",
+                        "categoryId": "67ae1e66c57141f547bc1f48",
+                        "location": "San Francisco",
+                        "longitude": "-122.4194",
+                        "latitude": "37.7749",
+                        "description": "Your go-to place for all tech solutions!",
+                        "amenitielsList": ["24/7 tech support", "Custom software development"],
+                        "email": "info@techsolutions.com",
+                        "mobile": "987654321",
+                        "taxNumber": "67890",
+                        "openingTimes": {
+                          "Monday": { "status": "open", "from": "09:00", "to": "18:00" },
+                          "Tuesday": { "status": "open", "from": "09:00", "to": "18:00" },
+                          "Wednesday": { "status": "open", "from": "09:00", "to": "18:00" }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": [
+                  {
+                    "status": 201,
+                    "description": "Created",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "userId": "67a899f51909bc60ccdc26a7",
+                          "listingName": "Tech Solutions",
+                          "categoryId": "67ae1e66c57141f547bc1f48",
+                          "location": "San Francisco",
+                          "_id": "87ab7fdae9fc1bcda8726b40"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "update-listing",
+                "title": "Update Listing",
+                "url": "/listing/{id}",
+                "method": "PUT",
+                "headers": [
+                  { "name": "token", "required": true, "description": "User authentication token" }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "listingName": "Updated Listing Name",
+                        "location": "Los Angeles",
+                        "items": [
+                          {
+                            "_id": "67a9ef61d7aecc72104f5365",
+                            "name": "Updated Item mmmm",
+                            "price": 75
+                          },
+                          {
+                            "name": "New Item 3",
+                            "price": 200
+                          }
+                        ],
+                        "openingTimes": {
+                          "Monday": { "status": "open", "from": "10:00", "to": "12:00" },
+                          "Tuesday": { "status": "close", "closingReason": "Holiday" }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "_id": "67ab7febe9fc0bcda8726b41",
+                          "userId": "67a899f51909bc60ccdc26a7",
+                          "listingName": "Updated Listing Name",
+                          "location": "Los Angeles"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "delete-listing",
+                "title": "Delete Listing",
+                "url": "/listing/{id}",
+                "method": "DELETE",
+                "responses": [
+                  {
+                    "status": 200,
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "message": "Listing deleted successfully"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "status": 404,
+                    "description": "Not Found",
+                    "content": {
+                      "application/json": {
+                        "example": {
+                          "statusCode": 404,
+                          "message": "Listing not found"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+    }

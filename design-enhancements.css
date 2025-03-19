@@ -1,0 +1,222 @@
+/* Additional design enhancements for better user experience */
+
+/* Enhance the overall look with subtle shadows and rounded corners */
+.endpoint, .intro-section, .relationship-section, .implementation-section {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.endpoint:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* Improved method badge styling */
+.method {
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Animated hover effects for interactive elements */
+.api-pill:hover, .btn-primary:hover, .copy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Better spacing and dividers */
+.api-section {
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.api-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* Better focus styles for accessibility */
+button:focus, a:focus, input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Beautiful code blocks */
+pre {
+    border-radius: 8px;
+    background-color: #2d3748;
+    padding: 1rem;
+    position: relative;
+}
+
+pre code {
+    font-family: 'Fira Code', 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Improved visualization area styling */
+.visualization-area {
+    border-radius: 12px;
+    background-color: #f8fafc;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.visualization-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 12px 12px 0 0;
+    z-index: 1;
+}
+
+/* Stylish zoom controls */
+.zoom-button {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.zoom-button:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Beautiful scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color);
+}
+
+/* Enhanced table styling */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+thead th {
+    background-color: #f3f4f6;
+    padding: 12px;
+    font-weight: 500;
+    text-align: left;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: rgba(66, 133, 244, 0.05);
+}
+
+/* Add design enhancements for response tabs */
+
+/* Response tab enhancements */
+.responses-tabs {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.response-tab {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.response-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.response-tab:hover::after {
+    width: 100%;
+}
+
+.response-tab.active::after {
+    width: 100%;
+    height: 3px;
+}
+
+.response-tab.active .status {
+    transform: scale(1.05);
+}
+
+.response-body-wrapper {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.response-body {
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    max-height: 500px;
+    transition: all 0.3s ease;
+}
+
+.response-body:hover {
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+}
+
+/* Status pill styling improvements */
+.status {
+    transition: all 0.2s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.status-200, .status-201 {
+    background-color: rgba(52, 168, 83, 0.15);
+    color: #34a853;
+}
+
+.status-400, .status-404 {
+    background-color: rgba(251, 188, 5, 0.15);
+    color: #fbbc05;
+}
+
+.status-500, .status-403, .status-401 {
+    background-color: rgba(234, 67, 53, 0.15);
+    color: #ea4335;
+}
